@@ -42,7 +42,7 @@ app.use(express.json())
 // });
 app.get('/', async (req, res) => {
   res.status(200).send({
-    message: 'Hello from Avishek Ai!'
+    message: 'Hello from JAIRAJ AI!'
   })
 })
 app.post('/convert', async (req, res) => {
