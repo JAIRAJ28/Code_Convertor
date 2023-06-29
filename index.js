@@ -37,6 +37,11 @@ app.use(express.json())
 //     res.status(500).json({ error: 'Something went wrong' });
 //   }
 // });
+app.get('/', async (req, res) => {
+  res.status(200).send({
+    message: 'Hello from Avishek Ai!'
+  })
+})
 app.post('/convert', async (req, res) => {
   try {
     const {code,language} = req.query;
