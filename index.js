@@ -53,7 +53,9 @@ app.post('/convert', async (req, res) => {
       model: "text-davinci-003",
       prompt: `${code} Convert this code in ${language} language and also debugg the code find out the error and 
       if any error encounter's show the error and in the next line provide the correct code with explanation for the same
-      along with all this check the quality of the code in depth and provide the details for the same after  2 line
+      along with all this check the quality of the code in depth with detail explanation in each parameter
+      code consistency , code performance ,code documentation , error handling ,code testability,modularity,complexity and readability
+      and provide the details for the same after  2 line
       separately `,
       temperature: 0, 
       max_tokens: 3000, 
