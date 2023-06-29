@@ -1,5 +1,8 @@
 const express = require('express');
 const axios = require('axios');
+const cors=require('cors');
+const app = express();
+app.use(cors())
 require('dotenv').config();
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -9,7 +12,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-const app = express();
+
 const port = process.env.PORT || 3800;
 const apiKey = process.env.API_KEY;
 app.use(express.json())
@@ -44,21 +47,24 @@ app.get('/', async (req, res) => {
 })
 app.post('/convert', async (req, res) => {
   try {
-    const {code,language} = req.query;
+    const {code,language} = req.body;
 
     const response = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `${code} Convert this code in ${language} language`,
+      prompt: `${code} Convert this code in ${language} language and also debugg the code find out the error and 
+      if any error encounter's show the error and in the next line provide the correct code with explanation for the same
+      along with all this check the quality of the code in depth and provide the details for the same after  2 line
+      separately `,
       temperature: 0, 
-      max_tokens: 1000, 
+      max_tokens: 3000, 
       top_p: 1, 
       frequency_penalty: 0.5, 
       presence_penalty: 0, 
     });
 
-    res.status(200).send({
-      bot: response.data.choices[0].text
-    });
+    res.status(200).send(
+     response.data.choices[0].text.split("\n\n")
+    );
 
   } catch (error) {
     console.error(error)
